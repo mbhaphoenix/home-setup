@@ -1,8 +1,9 @@
 which brew > /dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew install --cask 	anaconda \
-      appcleaner
+      appcleaner \
 			calibre \
+			cheatsheet \
 			expressvpn \
 			fanny \
 			google-chrome \
