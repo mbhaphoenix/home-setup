@@ -9,7 +9,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
 export ZSH_CACHE_DIR=~/.local/share/zsh/ohmyzsh
 export EDITOR="nvim"
 export GPG_TTY=$(tty)
@@ -41,6 +40,10 @@ setopt HIST_SAVE_NO_DUPS
 # Remove superfluous blanks before recording entry.
 setopt HIST_REDUCE_BLANKS
 
+function olrun() {
+    ollama run --verbose "$1" "$2"
+}
+
 function take() {
     mkdir -p $@ && cd ${@:$#}
 }
@@ -64,17 +67,10 @@ function update_all() {
     nvim +silent +PlugUpgrade +PlugUpdate +qall && growl "vim plug update finished"
 }
 
+alias ols='OLLAMA_HOST="0.0.0.0" ollama serve'
+
 alias ll="ls -rtlh"
 alias all="ls -artlh"
-
-alias g="gcloud"
-alias gauth="g auth"
-alias gc="g config"
-alias gcc="gc configurations"
-
-alias gcloudi="gcloud --impersonate-service-account=em52-sa-prd-data-root@prd-data-bootstrap-f48c.iam.gserviceaccount.com"
-alias gcsi="gsutil -i em52-sa-prd-data-root@prd-data-bootstrap-f48c.iam.gserviceaccount.com"
-alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)"'
 
 alias kx=kubectx
 alias kn=kubens
@@ -121,32 +117,3 @@ export HOMEBREW_HOME=/usr/local
 # bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-
-# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-#
-export GOOGLE_CLOUD_SDK_HOME="$HOMEBREW_HOME/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$GOOGLE_CLOUD_SDK_HOME/path.zsh.inc" ]; then . "$GOOGLE_CLOUD_SDK_HOME/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc" ]; then . "$GOOGLE_CLOUD_SDK_HOME/completion.zsh.inc"; fi
-#
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/Users/mehdiabbes/Runtimes/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/Users/mehdiabbes/Runtimes/anaconda3/etc/profile.d/conda.sh" ]; then
-#         . "/Users/mehdiabbes/Runtimes/anaconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/Users/mehdiabbes/Runtimes/anaconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
-# conda activate python397
-#
-# eval "$(direnv hook zsh)"
-

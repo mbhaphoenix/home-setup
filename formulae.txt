@@ -1,0 +1,13 @@
+ansible
+argocd-autopilot
+glab
+helm
+k9s
+kubectx
+kubernetes-cli
+neovim
+ollama
+openjdk@17
+pango
+rbenv
+tfenv
